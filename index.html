@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeantubo Essentials Store – Makati's Trusted Dry Goods Shop</title>
+  <meta name="description" content="Jeantubo Essentials Store – Quality dry goods, home essentials, and personal care for Makati. Local, reliable, and affordable.">
+  <link rel="icon" type="image/png" href="image/FAVICON.png" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet" />
+  <!-- Remixicon for icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <style>
+    :root {
+      --brand-pink: #e43c84;
+      --brand-purple: #ad1f5a;
+      --brand-light: #fff4f8;
+      --brand-dark: #212121;
+      --brand-gray: #f8f9fa;
+      --brand-accent: #f78104;
+      --radius: 1rem;
+      --shadow: 0 6px 24px 0 rgba(228,60,132,0.07);
+      --transition: .22s cubic-bezier(.4,0,.2,1);
+      --border: 1px solid #e8e9ef;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--brand-gray);
+      color: var(--brand-dark);
+      min-height: 100vh;
+    }
+    a { text-decoration: none; color: inherit; transition: color var(--transition); }
+    ul { list-style: none; }
+
+    img { max-width: 100%; display: block; border-radius: .5rem; }
+
+    button, input { font-family: inherit; outline: none; border: none; background: none; }
+
+    /* Header */
+    .header {
+      width: 100%;
+      background: var(--brand-light);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 99;
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      position: relative;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.6rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--brand-pink);
+      gap: 0.7rem;
+      white-space: nowrap;
+    }
+    .nav-logo img {
+      height: 48px;
+      width: 48px;
+      background: #fff;
+      border-radius: .7rem;
+      box-shadow: 0 2px 14px 0 rgba(228,60,132,0.08);
+      object-fit: contain;
+      margin-right: 0.6rem;
+    }
+    .nav-list {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+    .nav-link {
+      position: relative;
+      color: var(--brand-dark);
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.25rem 0;
+      transition: color var(--transition);
+    }
+    .nav-link.active,
+    .nav-link:hover {
+      color: var(--brand-pink);
+    }
+    .nav-link.active::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--brand-pink);
+      border-radius: 2px;
+      margin: 0.25rem auto 0;
+    }
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      position: relative;
+    }
+    .nav-action-btn {
+      font-size: 1.4rem;
+      color: var(--brand-pink);
+      background: #fff;
+      border-radius: 50%;
+      padding: 0.5rem;
+      cursor: pointer;
+      border: var(--border);
+      transition: background var(--transition), color var(--transition);
+      z-index: 2;
+    }
+    .nav-action-btn:hover {
+      background: var(--brand-pink);
+      color: var(--brand-light);
+    }
+    .nav-toggle, .nav-close {
+      display: none;
+      font-size: 2rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: var(--brand-pink);
+      margin-left: 1rem;
+      z-index: 3;
+    }
+
+    /* Cart Sidebar */
+    .cart-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(228,60,132,0.12);
+      z-index: 100;
+      display: none;
+    }
+    .cart-overlay.active { display: block; }
+    .cart-sidebar {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 340px;
+      max-width: 98vw;
+      height: 100%;
+      background: var(--brand-light);
+      box-shadow: -2px 0 18px 0 rgba(228,60,132,0.10);
+      z-index: 101;
+      padding: 2rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      transition: right var(--transition);
+    }
+    .cart-sidebar.open { right: 0; }
+    .cart-sidebar-header {
+      display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem;
+    }
+    .cart-sidebar-title {
+      font-size: 1.2rem; font-weight: 700; color: var(--brand-pink);
+    }
+    .cart-sidebar-close {
+      font-size: 1.7rem;
+      color: var(--brand-pink);
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+    .cart-item {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+      border-bottom: 1px solid #f0f1f5;
+      padding-bottom: 1rem;
+    }
+    .cart-item-img {
+      width: 56px;
+      height: 56px;
+      object-fit: contain;
+      border-radius: .5rem;
+      background: #f7f8fb;
+    }
+    .cart-item-details { flex: 1; }
+    .cart-item-title {
+      font-size: 1rem; font-weight: 600; margin-bottom: .12rem;
+    }
+    .cart-item-price {
+      color: var(--brand-pink); font-weight: 500; font-size: 0.97rem; margin-bottom: .09rem;
+    }
+    .cart-item-qty {
+      display: flex; align-items: center; gap: .4rem; margin-top: .22rem;
+    }
+    .cart-item-qty-btn {
+      font-size: 1.12rem;
+      background: var(--brand-gray);
+      border-radius: .3rem;
+      padding: 2px 7px;
+      cursor: pointer;
+      color: var(--brand-pink);
+      border: 1px solid #e8e9ef;
+    }
+    .cart-item-qty-btn:hover {
+      background: var(--brand-pink);
+      color: #fff;
+    }
+    .cart-item-remove {
+      color: #e14d4d;
+      font-size: 1.15rem;
+      margin-left: .5rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    .cart-sidebar-footer {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    .cart-sidebar-footer .checkout-btn {
+      padding: 0.7rem 1.6rem;
+      background: var(--brand-pink);
+      color: #fff;
+      border-radius: .5rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+    .cart-sidebar-footer .checkout-btn:hover {
+      background: var(--brand-purple);
+    }
+
+    /* Main Content */
+    main {
+      max-width: 1170px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 3rem;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2.8rem;
+      background: linear-gradient(93deg, #ffe2ee 0%, #fff4f8 100%);
+      border-radius: var(--radius);
+      padding: 2.2rem 2.5rem;
+      margin-bottom: 2.3rem;
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+    }
+    .hero-content {
+      flex: 1;
+      min-width: 260px;
+      max-width: 520px;
+    }
+    .hero-title {
+      font-size: 2.45rem;
+      font-weight: 800;
+      color: var(--brand-pink);
+      line-height: 1.1;
+      margin-bottom: 1.1rem;
+      letter-spacing: 1.2px;
+    }
+    .hero-desc {
+      color: var(--brand-dark);
+      font-size: 1.15rem;
+      margin-bottom: 1.25rem;
+    }
+    .hero-btns {
+      display: flex;
+      gap: 1.1rem;
+      margin-top: 0.6rem;
+    }
+    .btn-primary, .btn-secondary {
+      padding: 0.95rem 2.3rem;
+      font-size: 1rem;
+      border-radius: .7rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), color var(--transition), box-shadow var(--transition);
+      box-shadow: 0 2px 8px 0 rgba(228,60,132,0.05);
+      outline: none;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--brand-pink);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--brand-purple);
+    }
+    .btn-secondary {
+      background: #fff;
+      color: var(--brand-pink);
+      border: 2px solid var(--brand-pink);
+    }
+    .btn-secondary:hover {
+      background: var(--brand-pink);
+      color: #fff;
+    }
+    .hero-img-container {
+      min-width: 220px;
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+    }
+    .hero-img {
+      width: 320px;
+      max-width: 100%;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 24px 0 rgba(228,60,132,.12);
+      background: #fff;
+      object-fit: contain;
+    }
+
+    /* Section Titles */
+    .section-title {
+      font-size: 2.1rem;
+      color: var(--brand-pink);
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2rem;
+      margin-top: 1rem;
+      letter-spacing: .5px;
+    }
+    /* Products Grid */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+    .product-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.2rem 1.1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform .18s cubic-bezier(.4,0,.2,1), box-shadow var(--transition);
+      position: relative;
+    }
+    .product-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 12px 32px 0 rgba(228,60,132,.12);
+    }
+    .product-img {
+      width: 112px;
+      height: 112px;
+      object-fit: contain;
+      margin-bottom: 1.1rem;
+      background: #fff4f8;
+      border-radius: .5rem;
+      border: 1px solid #fde2f1;
+    }
+    .product-name {
+      font-weight: 700;
+      font-size: 1.07rem;
+      text-align: center;
+      margin-bottom: .4rem;
+      color: var(--brand-pink);
+    }
+    .product-desc {
+      font-size: 0.97rem;
+      color: var(--brand-dark);
+      margin-bottom: 0.7rem;
+      text-align: center;
+    }
+    .product-price {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: var(--brand-purple);
+      margin-bottom: 1rem;
+    }
+    .product-add {
+      background: var(--brand-pink);
+      color: #fff;
+      border-radius: .4rem;
+      padding: 0.65rem 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      border: none;
+      transition: background var(--transition);
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      margin-top: 0.1rem;
+    }
+    .product-add:hover {
+      background: var(--brand-purple);
+    }
+    .product-badge {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: var(--brand-accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: .92rem;
+      padding: 0.22rem 0.8rem;
+      border-radius: .5rem;
+      letter-spacing: 1px;
+    }
+
+    /* Info Cards */
+    .info-sections {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin-bottom: 2.5rem;
+      justify-content: center;
+    }
+    .info-card {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.6rem 1.2rem;
+      min-width: 240px;
+      flex: 1 1 240px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      max-width: 370px;
+    }
+    .info-icon {
+      font-size: 2.3rem;
+      color: var(--brand-pink);
+      margin-bottom: 0.7rem;
+    }
+    .info-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+      color: var(--brand-pink);
+    }
+    .info-desc {
+      color: var(--brand-dark);
+      font-size: 0.97rem;
+    }
+    /* Newsletter */
+    .newsletter-section {
+      background: linear-gradient(90deg, #ffe2ee 0%, #fff4f8 100%);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.2rem 1.25rem;
+      max-width: 650px;
+      margin: 3rem auto 2.5rem;
+      text-align: center;
+    }
+    .newsletter-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: .5rem;
+      color: var(--brand-pink);
+    }
+    .newsletter-desc {
+      color: var(--brand-dark);
+      font-size: 1.05rem;
+      margin-bottom: 1.1rem;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .newsletter-input {
+      padding: 0.75rem 1.25rem;
+      border-radius: .5rem;
+      border: 1px solid #e6ecf6;
+      background: #fff4f8;
+      font-size: 1rem;
+      min-width: 210px;
+      color: var(--brand-dark);
+      transition: border var(--transition);
+    }
+    .newsletter-input:focus {
+      border-color: var(--brand-pink);
+    }
+    .newsletter-btn {
+      background: var(--brand-pink);
+      color: #fff;
+      border-radius: .5rem;
+      padding: 0.75rem 2.1rem;
+      font-weight: 600;
+      font-size: 1rem;
+      border: none;
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+    .newsletter-btn:hover {
+      background: var(--brand-purple);
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--brand-pink);
+      color: #fff;
+      padding: 2.7rem 0 1.2rem;
+      margin-top: 3rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.2rem;
+      justify-content: space-between;
+      align-items: flex-start;
+      padding: 0 2rem;
+    }
+    .footer-brand {
+      flex: 1 1 240px;
+      margin-bottom: 2rem;
+    }
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+      gap: .6rem;
+      margin-bottom: 0.6rem;
+      color: #fff;
+    }
+    .footer-logo img {
+      width: 38px;
+      height: 38px;
+    }
+    .footer-desc {
+      color: #fdf6fa;
+      font-size: 1.01rem;
+      margin-bottom: .7rem;
+    }
+    .footer-links-group {
+      flex: 1 1 160px;
+      margin-bottom: 2rem;
+    }
+    .footer-links-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: .45rem;
+      letter-spacing: .5px;
+    }
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+    }
+    .footer-link {
+      color: #fdf6fa;
+      font-size: .99rem;
+      opacity: .94;
+      transition: color var(--transition);
+    }
+    .footer-link:hover {
+      color: var(--brand-light);
+      text-decoration: underline;
+    }
+    .footer-bottom {
+      text-align: center;
+      font-size: .97rem;
+      color: #fdf6fa;
+      margin-top: 2rem;
+      opacity: .92;
+    }
+    .footer-bottom a {
+      color: #fff;
+      font-weight: 600;
+      text-decoration: underline;
+      transition: color var(--transition);
+    }
+    .footer-bottom a:hover {
+      color: var(--brand-light);
+    }
+    /* Scroll-to-top */
+    .scroll-top-btn {
+      position: fixed;
+      right: 1.2rem;
+      bottom: -64px;
+      background: var(--brand-pink);
+      color: #fff;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      z-index: 150;
+      transition: bottom .33s cubic-bezier(.4,0,.2,1), background var(--transition);
+      box-shadow: 0 2px 8px 0 rgba(228,60,132,0.12);
+      cursor: pointer;
+      border: none;
+    }
+    .scroll-top-btn.visible { bottom: 2rem; }
+    .scroll-top-btn:hover { background: var(--brand-purple); }
+
+    /* Responsive Design */
+    @media (max-width: 1100px) {
+      .hero { flex-direction: column; text-align: center; }
+      .hero-content, .hero-img-container { justify-content: center; }
+      .hero-img { margin: 1.2rem auto 0 auto; }
+      .footer-container { flex-direction: column; gap: 2.8rem; align-items: flex-start; }
+    }
+    @media (max-width: 900px) {
+      .nav-list { gap: 1.3rem; }
+      .footer-container { padding: 0 1rem; }
+    }
+    @media (max-width: 776px) {
+      .nav { padding: 1rem 1rem; }
+      .main { padding: 1.5rem .5rem 2rem; }
+      .products-grid, .info-sections { gap: 1.1rem; }
+    }
+    @media (max-width: 700px) {
+      .nav {
+        padding: 1rem 0.7rem;
+      }
+      .nav-logo {
+        font-size: 1.09rem;
+      }
+      .nav-list {
+        position: fixed;
+        top: 0;
+        right: -100vw;
+        width: 80vw;
+        height: 100vh;
+        background: #fff;
+        flex-direction: column;
+        gap: 2rem;
+        padding-top: 5rem;
+        z-index: 120;
+        transition: right var(--transition);
+        box-shadow: -2px 0 18px 0 rgba(228,60,132,0.07);
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+      .nav-list.open { right: 0; }
+      .nav-toggle {
+        display: block;
+        position: absolute;
+        right: 1rem;
+        top: 1.1rem;
+        background: none;
+        border: none;
+        z-index: 3;
+      }
+      .nav-close {
+        display: block;
+        position: fixed;
+        top: 1.1rem;
+        right: 2.2rem;
+        z-index: 200;
+        background: none;
+        border: none;
+      }
+      .nav-actions {
+        gap: 0.5rem;
+        position: absolute;
+        right: 3.5rem;
+        top: 1rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 1.2rem .7rem; }
+      .newsletter-section { padding: 1.3rem .6rem; }
+      .footer { padding: 2rem 0 1.1rem; }
+    }
+    @media (max-width: 430px) {
+      .cart-sidebar { width: 98vw; padding: 1.2rem .6rem; }
+      .footer-logo img { width: 28px; height: 28px; }
+      .nav-logo { font-size: 0.97rem; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header" id="header">
+    <nav class="nav">
+      <a href="index.html" class="nav-logo">
+        <img src="image/LOGO.png" alt="Jeantubo Essentials Store Logo" />
+        Jeantubo Essentials Store
+      </a>
+      <ul class="nav-list" id="nav-list">
+        <li><a href="index.html" class="nav-link active">Home</a></li>
+        <li><a href="#products" class="nav-link">Shop</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+        <li><a href="#policies" class="nav-link">Policies</a></li>
+      </ul>
+      <div class="nav-actions">
+        <button class="nav-action-btn" id="cart-btn" aria-label="Open cart"><i class="ri-shopping-bag-3-line"></i></button>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu"><i class="ri-menu-3-line"></i></button>
+      <button class="nav-close" id="nav-close" aria-label="Close menu"><i class="ri-close-line"></i></button>
+    </nav>
+  </header>
+
+  <!-- Cart Sidebar & Overlay -->
+  <div class="cart-overlay" id="cart-overlay"></div>
+  <aside class="cart-sidebar" id="cart-sidebar" aria-label="Shopping cart">
+    <div class="cart-sidebar-header">
+      <div class="cart-sidebar-title">My Cart</div>
+      <button class="cart-sidebar-close" id="cart-close" aria-label="Close cart"><i class="ri-close-line"></i></button>
+    </div>
+    <div class="cart-items" id="cart-items">
+      <!-- Example cart items (replace with JS for real app) -->
+      <div class="cart-item">
+        <img src="https://via.placeholder.com/56x56?text=Detergent" alt="Laundry Detergent" class="cart-item-img">
+        <div class="cart-item-details">
+          <div class="cart-item-title">Laundry Detergent</div>
+          <div class="cart-item-price">$30.99</div>
+          <div class="cart-item-qty">
+            <button class="cart-item-qty-btn" aria-label="Decrease quantity"><i class="ri-subtract-line"></i></button>
+            <span>1</span>
+            <button class="cart-item-qty-btn" aria-label="Increase quantity"><i class="ri-add-line"></i></button>
+            <button class="cart-item-remove" aria-label="Remove item"><i class="ri-delete-bin-6-line"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="cart-item">
+        <img src="https://via.placeholder.com/56x56?text=Rice" alt="Rice (5kg)" class="cart-item-img">
+        <div class="cart-item-details">
+          <div class="cart-item-title">Rice (5kg)</div>
+          <div class="cart-item-price">$14.50</div>
+          <div class="cart-item-qty">
+            <button class="cart-item-qty-btn" aria-label="Decrease quantity"><i class="ri-subtract-line"></i></button>
+            <span>1</span>
+            <button class="cart-item-qty-btn" aria-label="Increase quantity"><i class="ri-add-line"></i></button>
+            <button class="cart-item-remove" aria-label="Remove item"><i class="ri-delete-bin-6-line"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="cart-sidebar-footer">
+      <span><span id="cart-items-count">2</span> items | <span id="cart-total">$45.49</span></span>
+      <button class="checkout-btn">Checkout</button>
+    </div>
+  </aside>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero" id="about">
+      <div class="hero-content">
+        <h1 class="hero-title">Welcome to Jeantubo Essentials Store</h1>
+        <div class="hero-desc">
+          Your <span style="color:var(--brand-accent);font-weight:bold;">trusted dry goods partner</span> in Makati! Reliable, affordable, and carefully selected essentials for your home and family.
+        </div>
+        <div class="hero-btns">
+          <a href="#products" class="btn-primary">Shop Now</a>
+          <a href="#newsletter" class="btn-secondary">Get Updates</a>
+        </div>
+      </div>
+      <div class="hero-img-container">
+        <img src="image/LOGO.png" alt="Jeantubo Essentials Store Logo" class="hero-img" />
+      </div>
+    </section>
+
+    <!-- Info Sections -->
+    <section class="info-sections">
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-truck-line"></i></div>
+        <div class="info-title">Fast Delivery in Makati</div>
+        <div class="info-desc">Same-day delivery available within Makati area via partner courier services.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-shield-check-line"></i></div>
+        <div class="info-title">Quality Guaranteed</div>
+        <div class="info-desc">Every product is carefully selected for your everyday needs and satisfaction.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-user-heart-line"></i></div>
+        <div class="info-title">Trusted Local Store</div>
+        <div class="info-desc">Supporting Filipino suppliers and serving our Makati neighborhood with dedication.</div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products">
+      <h2 class="section-title">Featured Essentials</h2>
+      <div class="products-grid">
+        <div class="product-card">
+          <span class="product-badge">Qty: 12</span>
+          <img src="https://via.placeholder.com/112x112?text=Detergent" alt="Laundry Detergent" class="product-img" />
+          <div class="product-name">Laundry Detergent</div>
+          <div class="product-desc">Powerful cleaning for fresh laundry.</div>
+          <div class="product-price">$30.99</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <span class="product-badge">Qty: 7</span>
+          <img src="https://via.placeholder.com/112x112?text=Rice" alt="Rice (5kg)" class="product-img" />
+          <div class="product-name">Rice (5kg)</div>
+          <div class="product-desc">Premium local rice, perfect for families.</div>
+          <div class="product-price">$14.50</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <span class="product-badge">Qty: 20</span>
+          <img src="https://via.placeholder.com/112x112?text=Soap" alt="Bath Soap" class="product-img" />
+          <div class="product-name">Bath Soap</div>
+          <div class="product-desc">Gentle and refreshing daily soap.</div>
+          <div class="product-price">$3.99</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <span class="product-badge">Qty: 15</span>
+          <img src="https://via.placeholder.com/112x112?text=Sardines" alt="Canned Sardines" class="product-img" />
+          <div class="product-name">Canned Sardines</div>
+          <div class="product-desc">Classic pantry staple for quick meals.</div>
+          <div class="product-price">$2.50</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <span class="product-badge">Qty: 9</span>
+          <img src="https://via.placeholder.com/112x112?text=Disinfectant" alt="Disinfectant Spray" class="product-img" />
+          <div class="product-name">Disinfectant Spray</div>
+          <div class="product-desc">Effective protection for your home.</div>
+          <div class="product-price">$8.75</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+        <div class="product-card">
+          <span class="product-badge">Qty: 30</span>
+          <img src="https://via.placeholder.com/112x112?text=Noodles" alt="Instant Noodles (Pack)" class="product-img" />
+          <div class="product-name">Instant Noodles (Pack)</div>
+          <div class="product-desc">Quick and tasty snack anytime.</div>
+          <div class="product-price">$1.25</div>
+          <button class="product-add"><i class="ri-shopping-cart-2-line"></i> Add to Cart</button>
+        </div>
+      </div>
+      <div style="margin-top:2rem;">
+        <h4 style="color:var(--brand-pink);font-weight:700;">Services</h4>
+        <ul>
+          <li>Bulk purchases for sari-sari store owners</li>
+          <li>Same-day delivery within Makati area (via partner courier)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Steps Section -->
+    <section class="info-sections" style="margin-bottom:2.8rem;">
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-search-eye-line"></i></div>
+        <div class="info-title">Browse</div>
+        <div class="info-desc">Find everyday essentials and shop with ease.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-shopping-cart-2-line"></i></div>
+        <div class="info-title">Add to Cart</div>
+        <div class="info-desc">Select items and add them to your cart in one click.</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon"><i class="ri-gift-line"></i></div>
+        <div class="info-title">Enjoy Delivery</div>
+        <div class="info-desc">Receive your order at your doorstep—fast, safe, and secure.</div>
+      </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter-section" id="newsletter">
+      <div class="newsletter-title">Stay Updated!</div>
+      <div class="newsletter-desc">
+        Get the latest on new arrivals, exclusive offers, and store updates straight to your inbox.
+      </div>
+      <form class="newsletter-form" autocomplete="off">
+        <input type="email" class="newsletter-input" placeholder="Your email address" required />
+        <button type="submit" class="newsletter-btn">Subscribe</button>
+      </form>
+    </section>
+
+    <!-- Policy Sections -->
+    <section id="policies" style="margin-top:2.5rem;">
+      <div class="section-title">Our Store Policies</div>
+      <div class="info-sections">
+        <div class="info-card">
+          <div class="info-title">Privacy Policy</div>
+          <div class="info-desc">
+            <a href="privacy-policy.html" style="color:var(--brand-pink);font-weight:bold;text-decoration:underline;">Read Privacy Policy</a><br>
+            We respect your privacy and will never share your information without consent.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-title">Terms of Service</div>
+          <div class="info-desc">
+            <a href="terms.html" style="color:var(--brand-pink);font-weight:bold;text-decoration:underline;">View Terms of Service</a><br>
+            By shopping with us, you agree to our fair and transparent terms.
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-title">Refund Policy</div>
+          <div class="info-desc">
+            <a href="refund-policy.html" style="color:var(--brand-pink);font-weight:bold;text-decoration:underline;">See Refund Policy</a><br>
+            Returns and exchanges available for eligible products within 30 days.
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" id="contact">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <img src="image/LOGO.png" alt="Jeantubo Essentials Store Logo" />
+          Jeantubo Essentials Store
+        </div>
+        <div class="footer-desc">
+          Your trusted dry goods partner in Makati.<br>
+          Sulit, maaasahan, at para sa lahat.
+        </div>
+        <div class="footer-links" style="margin-top:0.5rem;">
+          <a href="privacy-policy.html" class="footer-link">Privacy Policy</a>
+          <a href="terms.html" class="footer-link">Terms of Service</a>
+          <a href="refund-policy.html" class="footer-link">Refund Policy</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">About</div>
+        <div class="footer-links">
+          <a href="#about" class="footer-link">Our Story</a>
+          <a href="#policies" class="footer-link">Policies</a>
+          <a href="#contact" class="footer-link">Contact</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Customer Care</div>
+        <div class="footer-links">
+          <a href="#products" class="footer-link">Shop</a>
+          <a href="#newsletter" class="footer-link">Newsletter</a>
+          <a href="#policies" class="footer-link">Returns</a>
+        </div>
+      </div>
+      <div class="footer-links-group">
+        <div class="footer-links-title">Connect</div>
+        <div class="footer-links">
+          <a href="mailto:contact@jeantuboessentials.com" class="footer-link">contact@jeantuboessentials.com</a>
+          <a href="tel:+639610264895" class="footer-link">+63 961 026 4895</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; <span id="footer-year"></span> Jeantubo Essentials Store. All rights reserved. Powered by <a href="#">DaniPop88</a>.
+    </div>
+  </footer>
+
+  <button class="scroll-top-btn" id="scroll-top-btn" aria-label="Scroll to top"><i class="ri-arrow-up-line"></i></button>
+
+  <!-- Scripts -->
+  <script>
+    // Navigation for mobile
+    const navToggle = document.getElementById('nav-toggle');
+    const navClose = document.getElementById('nav-close');
+    const navList = document.getElementById('nav-list');
+    // Show only one burger or close button at a time
+    function updateNavIcons() {
+      if (window.innerWidth <= 700) {
+        if (navList.classList.contains('open')) {
+          navToggle.style.display = 'none';
+          navClose.style.display = 'block';
+        } else {
+          navToggle.style.display = 'block';
+          navClose.style.display = 'none';
+        }
+      } else {
+        navToggle.style.display = 'none';
+        navClose.style.display = 'none';
+      }
+    }
+    navToggle && navToggle.addEventListener('click', () => {
+      navList.classList.add('open');
+      updateNavIcons();
+    });
+    navClose && navClose.addEventListener('click', () => {
+      navList.classList.remove('open');
+      updateNavIcons();
+    });
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navList.classList.remove('open');
+        updateNavIcons();
+      });
+    });
+    window.addEventListener('resize', updateNavIcons);
+    document.addEventListener('DOMContentLoaded', updateNavIcons);
+
+    // Cart sidebar logic
+    const cartBtn = document.getElementById('cart-btn');
+    const cartSidebar = document.getElementById('cart-sidebar');
+    const cartCloseBtn = document.getElementById('cart-close');
+    const cartOverlay = document.getElementById('cart-overlay');
+    function openCart() {
+      cartSidebar.classList.add('open');
+      cartOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCart() {
+      cartSidebar.classList.remove('open');
+      cartOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    cartBtn && cartBtn.addEventListener('click', openCart);
+    cartCloseBtn && cartCloseBtn.addEventListener('click', closeCart);
+    cartOverlay && cartOverlay.addEventListener('click', closeCart);
+
+    // Scroll-to-top button
+    const scrollTopBtn = document.getElementById('scroll-top-btn');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 350) { scrollTopBtn.classList.add('visible'); }
+      else { scrollTopBtn.classList.remove('visible'); }
+    });
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+
+    // Footer year
+    document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+    // Newsletter placeholder
+    document.querySelector('.newsletter-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for subscribing! (This is a placeholder.)');
+      this.reset();
+    });
+  </script>
+</body>
+</html>
