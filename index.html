@@ -6,9 +6,7 @@
   <title>Jeantubo Essentials Store – Makati's Trusted Dry Goods Shop</title>
   <meta name="description" content="Jeantubo Essentials Store – Quality dry goods, home essentials, and personal care for Makati. Local, reliable, and affordable.">
   <link rel="icon" type="image/png" href="image/FAVICON.png" />
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:700,400&display=swap" rel="stylesheet" />
-  <!-- Remixicon for icons -->
   <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet" />
   <style>
     :root {
@@ -23,7 +21,6 @@
       --transition: .22s cubic-bezier(.4,0,.2,1);
       --border: 1px solid #e8e9ef;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
     body {
@@ -34,12 +31,9 @@
     }
     a { text-decoration: none; color: inherit; transition: color var(--transition); }
     ul { list-style: none; }
-
     img { max-width: 100%; display: block; border-radius: .5rem; }
-
     button, input { font-family: inherit; outline: none; border: none; background: none; }
 
-    /* Header */
     .header {
       width: 100%;
       background: var(--brand-light);
@@ -80,6 +74,7 @@
       display: flex;
       align-items: center;
       gap: 2rem;
+      transition: right var(--transition);
     }
     .nav-link {
       position: relative;
@@ -102,26 +97,11 @@
       border-radius: 2px;
       margin: 0.25rem auto 0;
     }
-    .nav-actions {
+    .nav-actions-group {
       display: flex;
       align-items: center;
-      gap: 1.2rem;
+      gap: 0.75rem;
       position: relative;
-    }
-    .nav-action-btn {
-      font-size: 1.4rem;
-      color: var(--brand-pink);
-      background: #fff;
-      border-radius: 50%;
-      padding: 0.5rem;
-      cursor: pointer;
-      border: var(--border);
-      transition: background var(--transition), color var(--transition);
-      z-index: 2;
-    }
-    .nav-action-btn:hover {
-      background: var(--brand-pink);
-      color: var(--brand-light);
     }
     .nav-toggle, .nav-close {
       display: none;
@@ -130,10 +110,43 @@
       border: none;
       cursor: pointer;
       color: var(--brand-pink);
-      margin-left: 1rem;
-      z-index: 3;
+      position: relative;
+      z-index: 101;
+      margin-left: 0;
+      margin-right: 0;
     }
-
+    /* Floating Cart Button */
+    .floating-cart-btn {
+      position: fixed;
+      left: 2rem;
+      bottom: 2rem;
+      z-index: 200;
+      background: var(--brand-pink);
+      color: #fff;
+      border-radius: 50%;
+      width: 54px;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 2px 10px rgba(228,60,132,0.11);
+      border: none;
+      transition: background var(--transition);
+      cursor: pointer;
+    }
+    .floating-cart-btn:hover {
+      background: var(--brand-purple);
+    }
+    @media (max-width: 600px) {
+      .floating-cart-btn {
+        left: 1rem;
+        bottom: 1rem;
+        width: 48px;
+        height: 48px;
+        font-size: 1.6rem;
+      }
+    }
     /* Cart Sidebar */
     .cart-overlay {
       position: fixed;
@@ -152,7 +165,7 @@
       height: 100%;
       background: var(--brand-light);
       box-shadow: -2px 0 18px 0 rgba(228,60,132,0.10);
-      z-index: 101;
+      z-index: 201;
       padding: 2rem 1.1rem;
       display: flex;
       flex-direction: column;
@@ -240,18 +253,16 @@
       font-weight: 600;
       cursor: pointer;
       border: none;
+      transition: background var(--transition);
     }
     .cart-sidebar-footer .checkout-btn:hover {
       background: var(--brand-purple);
     }
-
-    /* Main Content */
     main {
       max-width: 1170px;
       margin: 0 auto;
       padding: 2.5rem 1.25rem 3rem;
     }
-
     .hero {
       display: flex;
       align-items: center;
@@ -329,8 +340,6 @@
       background: #fff;
       object-fit: contain;
     }
-
-    /* Section Titles */
     .section-title {
       font-size: 2.1rem;
       color: var(--brand-pink);
@@ -340,7 +349,6 @@
       margin-top: 1rem;
       letter-spacing: .5px;
     }
-    /* Products Grid */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -420,8 +428,6 @@
       border-radius: .5rem;
       letter-spacing: 1px;
     }
-
-    /* Info Cards */
     .info-sections {
       display: flex;
       flex-wrap: wrap;
@@ -457,7 +463,6 @@
       color: var(--brand-dark);
       font-size: 0.97rem;
     }
-    /* Newsletter */
     .newsletter-section {
       background: linear-gradient(90deg, #ffe2ee 0%, #fff4f8 100%);
       border-radius: var(--radius);
@@ -511,8 +516,6 @@
     .newsletter-btn:hover {
       background: var(--brand-purple);
     }
-
-    /* Footer */
     .footer {
       background: var(--brand-pink);
       color: #fff;
@@ -593,7 +596,6 @@
     .footer-bottom a:hover {
       color: var(--brand-light);
     }
-    /* Scroll-to-top */
     .scroll-top-btn {
       position: fixed;
       right: 1.2rem;
@@ -615,8 +617,6 @@
     }
     .scroll-top-btn.visible { bottom: 2rem; }
     .scroll-top-btn:hover { background: var(--brand-purple); }
-
-    /* Responsive Design */
     @media (max-width: 1100px) {
       .hero { flex-direction: column; text-align: center; }
       .hero-content, .hero-img-container { justify-content: center; }
@@ -656,29 +656,26 @@
         justify-content: flex-start;
       }
       .nav-list.open { right: 0; }
+      .nav-actions-group {
+        gap: 0.5rem;
+      }
       .nav-toggle {
         display: block;
-        position: absolute;
+        position: fixed;
+        top: 1rem;
         right: 1rem;
-        top: 1.1rem;
+        z-index: 150;
         background: none;
         border: none;
-        z-index: 3;
       }
       .nav-close {
         display: block;
         position: fixed;
-        top: 1.1rem;
-        right: 2.2rem;
-        z-index: 200;
+        top: 1rem;
+        right: 1rem;
+        z-index: 151;
         background: none;
         border: none;
-      }
-      .nav-actions {
-        gap: 0.5rem;
-        position: absolute;
-        right: 3.5rem;
-        top: 1rem;
       }
     }
     @media (max-width: 600px) {
@@ -700,6 +697,10 @@
         <img src="image/LOGO.png" alt="Jeantubo Essentials Store Logo" />
         Jeantubo Essentials Store
       </a>
+      <div class="nav-actions-group">
+        <button class="nav-toggle" id="nav-toggle" aria-label="Open menu"><i class="ri-menu-3-line"></i></button>
+        <button class="nav-close" id="nav-close" aria-label="Close menu"><i class="ri-close-line"></i></button>
+      </div>
       <ul class="nav-list" id="nav-list">
         <li><a href="index.html" class="nav-link active">Home</a></li>
         <li><a href="#products" class="nav-link">Shop</a></li>
@@ -707,15 +708,9 @@
         <li><a href="#contact" class="nav-link">Contact</a></li>
         <li><a href="#policies" class="nav-link">Policies</a></li>
       </ul>
-      <div class="nav-actions">
-        <button class="nav-action-btn" id="cart-btn" aria-label="Open cart"><i class="ri-shopping-bag-3-line"></i></button>
-      </div>
-      <button class="nav-toggle" id="nav-toggle" aria-label="Open menu"><i class="ri-menu-3-line"></i></button>
-      <button class="nav-close" id="nav-close" aria-label="Close menu"><i class="ri-close-line"></i></button>
     </nav>
   </header>
-
-  <!-- Cart Sidebar & Overlay -->
+  <button class="floating-cart-btn" id="cart-btn" aria-label="Open cart"><i class="ri-shopping-bag-3-line"></i></button>
   <div class="cart-overlay" id="cart-overlay"></div>
   <aside class="cart-sidebar" id="cart-sidebar" aria-label="Shopping cart">
     <div class="cart-sidebar-header">
@@ -723,7 +718,6 @@
       <button class="cart-sidebar-close" id="cart-close" aria-label="Close cart"><i class="ri-close-line"></i></button>
     </div>
     <div class="cart-items" id="cart-items">
-      <!-- Example cart items (replace with JS for real app) -->
       <div class="cart-item">
         <img src="https://via.placeholder.com/56x56?text=Detergent" alt="Laundry Detergent" class="cart-item-img">
         <div class="cart-item-details">
@@ -753,12 +747,10 @@
     </div>
     <div class="cart-sidebar-footer">
       <span><span id="cart-items-count">2</span> items | <span id="cart-total">$45.49</span></span>
-      <button class="checkout-btn">Checkout</button>
+      <button class="checkout-btn" id="checkout-btn">Checkout</button>
     </div>
   </aside>
-
   <main>
-    <!-- Hero Section -->
     <section class="hero" id="about">
       <div class="hero-content">
         <h1 class="hero-title">Welcome to Jeantubo Essentials Store</h1>
@@ -774,8 +766,6 @@
         <img src="image/LOGO.png" alt="Jeantubo Essentials Store Logo" class="hero-img" />
       </div>
     </section>
-
-    <!-- Info Sections -->
     <section class="info-sections">
       <div class="info-card">
         <div class="info-icon"><i class="ri-truck-line"></i></div>
@@ -793,8 +783,6 @@
         <div class="info-desc">Supporting Filipino suppliers and serving our Makati neighborhood with dedication.</div>
       </div>
     </section>
-
-    <!-- Products Section -->
     <section id="products">
       <h2 class="section-title">Featured Essentials</h2>
       <div class="products-grid">
@@ -855,8 +843,6 @@
         </ul>
       </div>
     </section>
-
-    <!-- Steps Section -->
     <section class="info-sections" style="margin-bottom:2.8rem;">
       <div class="info-card">
         <div class="info-icon"><i class="ri-search-eye-line"></i></div>
@@ -874,8 +860,6 @@
         <div class="info-desc">Receive your order at your doorstep—fast, safe, and secure.</div>
       </div>
     </section>
-
-    <!-- Newsletter -->
     <section class="newsletter-section" id="newsletter">
       <div class="newsletter-title">Stay Updated!</div>
       <div class="newsletter-desc">
@@ -886,8 +870,6 @@
         <button type="submit" class="newsletter-btn">Subscribe</button>
       </form>
     </section>
-
-    <!-- Policy Sections -->
     <section id="policies" style="margin-top:2.5rem;">
       <div class="section-title">Our Store Policies</div>
       <div class="info-sections">
@@ -915,7 +897,6 @@
       </div>
     </section>
   </main>
-
   <footer class="footer" id="contact">
     <div class="footer-container">
       <div class="footer-brand">
@@ -961,16 +942,12 @@
       &copy; <span id="footer-year"></span> Jeantubo Essentials Store. All rights reserved. Powered by <a href="#">DaniPop88</a>.
     </div>
   </footer>
-
   <button class="scroll-top-btn" id="scroll-top-btn" aria-label="Scroll to top"><i class="ri-arrow-up-line"></i></button>
-
-  <!-- Scripts -->
   <script>
     // Navigation for mobile
     const navToggle = document.getElementById('nav-toggle');
     const navClose = document.getElementById('nav-close');
     const navList = document.getElementById('nav-list');
-    // Show only one burger or close button at a time
     function updateNavIcons() {
       if (window.innerWidth <= 700) {
         if (navList.classList.contains('open')) {
@@ -985,16 +962,16 @@
         navClose.style.display = 'none';
       }
     }
-    navToggle && navToggle.addEventListener('click', () => {
+    navToggle && navToggle.addEventListener('click', function() {
       navList.classList.add('open');
       updateNavIcons();
     });
-    navClose && navClose.addEventListener('click', () => {
+    navClose && navClose.addEventListener('click', function() {
       navList.classList.remove('open');
       updateNavIcons();
     });
-    document.querySelectorAll('.nav-link').forEach(link => {
-      link.addEventListener('click', () => {
+    document.querySelectorAll('.nav-link').forEach(function(link) {
+      link.addEventListener('click', function() {
         navList.classList.remove('open');
         updateNavIcons();
       });
@@ -1021,13 +998,21 @@
     cartCloseBtn && cartCloseBtn.addEventListener('click', closeCart);
     cartOverlay && cartOverlay.addEventListener('click', closeCart);
 
+    // Checkout button navigates to order-summary.html
+    const checkoutBtn = document.getElementById('checkout-btn');
+    checkoutBtn && checkoutBtn.addEventListener('click', function() {
+      window.location.href = "order-summary.html";
+    });
+
     // Scroll-to-top button
     const scrollTopBtn = document.getElementById('scroll-top-btn');
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
       if (window.scrollY > 350) { scrollTopBtn.classList.add('visible'); }
       else { scrollTopBtn.classList.remove('visible'); }
     });
-    scrollTopBtn.addEventListener('click', () => window.scrollTo({top: 0, behavior: 'smooth'}));
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
 
     // Footer year
     document.getElementById('footer-year').textContent = new Date().getFullYear();
